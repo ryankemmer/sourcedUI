@@ -1,0 +1,138 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* Homepage Container */
+  .homepage {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 40px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Heading */
+  .heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 20px;
+  }
+  
+  /* Form Styling */
+  .input-form {
+    margin-bottom: 30px;
+  }
+  
+  .input-label {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    display: block;
+    text-align: left;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input-field:focus {
+    border-color: #5b9bd5;
+  }
+  
+  .submit-button {
+    background-color: #5b9bd5;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:disabled {
+    background-color: #ccc;
+  }
+  
+  .submit-button:not(:disabled):hover {
+    background-color: #4682b4;
+  }
+  
+  /* Error Message */
+  .error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+  
+  /* URL List Styling */
+  .url-list-title {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .url-list {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+  }
+  
+  .url-list li {
+    margin: 10px 0;
+  }
+  
+  .url-list li a {
+    color: #5b9bd5;
+    text-decoration: none;
+  }
+  
+  .url-list li a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Media Query for Smaller Screens */
+  @media (max-width: 480px) {
+    .homepage {
+      width: 90%;
+      padding: 20px;
+    }
+  
+    .heading {
+      font-size: 2rem;
+    }
+  
+    .input-field {
+      font-size: 0.9rem;
+    }
+  
+    .submit-button {
+      font-size: 0.9rem;
+    }
+  
+    .url-list-title {
+      font-size: 1rem;
+    }
+  }
