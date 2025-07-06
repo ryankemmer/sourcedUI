@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Homepage.css'; // Import the CSS file for styling
+import './Homepage.css';
 
 function Homepage() {
   const [imageUrl, setImageUrl] = useState('');
@@ -15,22 +15,26 @@ function Homepage() {
     event.preventDefault();
     setLoading(true);
     setError('');
-
+  
     try {
-      // Simulate an API call using fetch (replace with actual API endpoint if necessary)
-      const response = await fetch('https://api.example.com/fetchUrls', {
-        method: 'GET',
+      // Use POST method to send image URL in the body
+      const response = await fetch('https://utt0f2i5kl.execute-api.us-west-2.amazonaws.com/prod/sourced', {
+        method: 'POST', // Use POST method instead of GET
         headers: {
           'Content-Type': 'application/json',
         },
-        // You can pass the image URL in the query string if needed
-        // or in the body of a POST request
-        body: JSON.stringify({ imageUrl }),
+        body: JSON.stringify({ image_url: imageUrl }), // Send the image URL in the body
       });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data); // Log the response from the server
 
-      // Simulating a successful API response
-      const result = { urls: ['https://example.com', 'https://anotherurl.com'] }; // Replace with actual response
-      setUrlList(result.urls); // Set the returned list of URLs
+        setUrlList(data.urls); // Set the returned URLs into the state
+      } else {
+        setError('Error fetching URLs. Please try again.');
+      }
+  
     } catch (error) {
       setError('Error fetching URLs. Please try again.');
     } finally {
