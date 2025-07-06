@@ -7,36 +7,26 @@ function Homepage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleImageUrlChange = (event) => {
-    setImageUrl(event.target.value);
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
     setError('');
-  
+
     try {
-      // Use POST method to send image URL in the body
       const response = await fetch('https://utt0f2i5kl.execute-api.us-west-2.amazonaws.com/prod/sourced', {
-        method: 'POST', // Use POST method instead of GET
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ image_url: imageUrl }), // Send the image URL in the body
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ image_url: imageUrl }),
       });
-  
+
       if (response.ok) {
         const data = await response.json();
-        console.log(data); // Log the response from the server
-
-        setUrlList(data.urls); // Set the returned URLs into the state
+        setUrlList(data.urls);
       } else {
-        setError('Error fetching URLs. Please try again.');
+        setError('Error fetching URLs.');
       }
-  
     } catch (error) {
-      setError('Error fetching URLs. Please try again.');
+      setError('Error fetching URLs.');
     } finally {
       setLoading(false);
     }
@@ -44,40 +34,48 @@ function Homepage() {
 
   return (
     <div className="homepage">
-      <h1 className="heading">Sourced</h1>
-      <form className="input-form" onSubmit={handleSubmit}>
-        <label className="input-label">
-          Image URL:
+      <div className="hero">
+        <h1 className="hero-title">You Know the Look.<br/>We Know Where to Thrift It.</h1>
+        <p className="hero-subhead">
+          Thrift designer fashion across Depop, Grailed, and more—curated to your exact aesthetic.
+        </p>
+        <form className="search-form" onSubmit={handleSubmit}>
           <input
-            className="input-field"
             type="text"
+            className="search-bar"
+            placeholder="What are you looking for?"
             value={imageUrl}
-            onChange={handleImageUrlChange}
-            placeholder="Enter image URL"
+            onChange={(e) => setImageUrl(e.target.value)}
             required
           />
-        </label>
-        <button className="submit-button" type="submit" disabled={loading}>
-          {loading ? 'Loading...' : 'Submit'}
-        </button>
-      </form>
+          <button type="submit" className="search-btn" disabled={loading}>
+            {loading ? 'Searching...' : 'Search'}
+          </button>
+        </form>
+        {error && <div className="error">{error}</div>}
+      </div>
 
-      {error && <p className="error-message">{error}</p>}
+      <div className="results-section">
+        {urlList.length > 0 && (
+          <ul className="url-list">
+            {urlList.map((url, idx) => (
+              <li key={idx}>
+                <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
-      <h2 className="url-list-title">Returned URLs:</h2>
-      {urlList.length > 0 ? (
-        <ul className="url-list">
-          {urlList.map((url, index) => (
-            <li key={index}>
-              <a href={url} target="_blank" rel="noopener noreferrer">
-                {url}
-              </a>
-            </li>
-          ))}
+      <section className="info-section">
+        <h2>What We Do</h2>
+        <p>You bring the inspiration. We bring the finds. Think of us as your thrift stylist, powered by your moodboard—not keywords.</p>
+        <ul className="info-list">
+          <li>🔍 Curated from Depop, Grailed, and Poshmark daily</li>
+          <li>✨ Premium brands like Ralph Lauren, Dior, Zegna & more</li>
+          <li>⏰ Updated constantly so you never miss a drop</li>
         </ul>
-      ) : (
-        !loading && <p>No URLs to show</p>
-      )}
+      </section>
     </div>
   );
 }

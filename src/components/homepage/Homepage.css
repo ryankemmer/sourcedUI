@@ -1,138 +1,167 @@
-/* General Reset */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #fafafa;
+  color: #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.homepage {
+  width: 100%;
+  max-width: 700px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+.hero-subhead {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 32px;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 50px;
+  outline: none;
+  margin-bottom: 16px;
+  transition: border-color 0.3s;
+}
+
+.search-bar:focus {
+  border-color: #000;
+}
+
+.search-btn {
+  background-color: #000;
+  color: #fff;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-btn:disabled {
+  background-color: #999;
+  cursor: default;
+}
+
+.search-btn:hover:not(:disabled) {
+  background-color: #333;
+}
+
+.error {
+  color: #d93025;
+  margin-top: 10px;
+}
+
+.results-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.url-list {
+  list-style: none;
+  padding: 0;
+}
+
+.url-list li {
+  margin: 10px 0;
+}
+
+.url-list li a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.url-list li a:hover {
+  text-decoration: underline;
+}
+
+.no-results {
+  color: #777;
+  font-style: italic;
+}
+
+.info-section {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 40px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+.info-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+}
+
+.info-section p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.info-list {
+  list-style: none;
+}
+
+.info-list li {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .hero-title {
+    font-size: 2.4rem;
   }
-  
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-  
-  /* Homepage Container */
-  .homepage {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 40px;
-    width: 400px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  /* Heading */
-  .heading {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #000;
-    margin-bottom: 20px;
-  }
-  
-  /* Form Styling */
-  .input-form {
-    margin-bottom: 30px;
-  }
-  
-  .input-label {
+
+  .hero-subhead {
     font-size: 1rem;
-    margin-bottom: 10px;
-    display: block;
-    text-align: left;
   }
-  
-  .input-field {
+
+  .search-bar {
+    padding: 12px 16px;
+  }
+
+  .search-btn {
     width: 100%;
-    padding: 12px;
-    font-size: 1rem;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    outline: none;
-    transition: border-color 0.3s ease;
   }
-  
-  .input-field:focus {
-    border-color: #5b9bd5;
+
+  .info-section {
+    padding: 20px;
   }
-  
-  .submit-button {
-    background-color: #5b9bd5;
-    color: white;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submit-button:disabled {
-    background-color: #ccc;
-  }
-  
-  .submit-button:not(:disabled):hover {
-    background-color: #4682b4;
-  }
-  
-  /* Error Message */
-  .error-message {
-    color: red;
-    font-size: 0.9rem;
-    margin-top: 10px;
-  }
-  
-  /* URL List Styling */
-  .url-list-title {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    text-align: left;
-  }
-  
-  .url-list {
-    list-style-type: none;
-    padding: 0;
-    text-align: left;
-  }
-  
-  .url-list li {
-    margin: 10px 0;
-  }
-  
-  .url-list li a {
-    color: #5b9bd5;
-    text-decoration: none;
-  }
-  
-  .url-list li a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Media Query for Smaller Screens */
-  @media (max-width: 480px) {
-    .homepage {
-      width: 90%;
-      padding: 20px;
-    }
-  
-    .heading {
-      font-size: 2rem;
-    }
-  
-    .input-field {
-      font-size: 0.9rem;
-    }
-  
-    .submit-button {
-      font-size: 0.9rem;
-    }
-  
-    .url-list-title {
-      font-size: 1rem;
-    }
-  }
+}
