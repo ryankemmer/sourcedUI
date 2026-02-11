@@ -1,165 +1,289 @@
-/* PrivacyPolicy.css */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+/* ─── Tokens (matching Homepage) ─── */
 
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: #fafafa;
-  color: #222;
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #0f0f0f;
+  --bg-card: #161616;
+  --text-primary: #f5f0eb;
+  --text-secondary: #a09b94;
+  --text-muted: #5a5550;
+  --accent: #c9a96e;
+  --accent-hover: #dbb978;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-hover: rgba(255, 255, 255, 0.14);
+  --font-display: 'Space Grotesk', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* ─── Page wrapper ─── */
+
+.privacy-page {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+/* ─── Navigation ─── */
+
+.pp-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 18px 32px;
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.pp-nav-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pp-nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.pp-nav-back {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 8px 20px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: all 0.3s var(--ease-out);
+}
+
+.pp-nav-back:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* ─── Main content ─── */
 
 .privacy {
   max-width: 800px;
   margin: 0 auto;
-  padding: 32px 20px 48px;
+  padding: 60px 24px 80px;
 }
+
+/* ─── Hero / Header ─── */
 
 .privacy-hero {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 48px;
 }
 
-.privacy-title {
-  font-size: 2.6rem;
-  font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 12px;
-}
-
-.privacy-meta {
-  color: #555;
-  display: inline-flex;
-  gap: 10px;
-  font-size: 0.95rem;
-}
-
-.meta-sep { opacity: 0.6; }
-
-/* TOC */
-.privacy-toc {
-  background: #fff;
-  border-radius: 14px;
-  padding: 18px 20px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-  margin-bottom: 24px;
-}
-
-.toc-title {
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.toc-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  columns: 2;
-  column-gap: 24px;
-}
-
-.toc-list li {
-  break-inside: avoid;
-  margin: 6px 0;
-  font-size: 0.95rem;
-}
-
-.toc-list a {
-  color: #0066cc;
-  text-decoration: none;
-}
-
-.toc-list a:hover { text-decoration: underline; }
-
-/* Cards / Sections */
-.policy-card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 22px 22px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+.pp-eyebrow {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
   margin-bottom: 16px;
 }
 
+.privacy-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+.privacy-meta {
+  display: inline-flex;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.meta-sep {
+  opacity: 0.4;
+}
+
+/* ─── Policy Cards ─── */
+
+.policy-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 28px;
+  margin-bottom: 16px;
+  transition: border-color 0.3s var(--ease-smooth);
+}
+
+.policy-card:hover {
+  border-color: var(--border-hover);
+}
+
 .policy-card h2 {
-  font-size: 1.4rem;
-  margin: 4px 0 14px;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 16px;
+  letter-spacing: -0.01em;
 }
 
 .policy-card h3 {
+  font-family: var(--font-display);
   font-size: 1.05rem;
-  margin: 16px 0 8px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 20px 0 10px;
+}
+
+.policy-card h3:first-of-type {
+  margin-top: 4px;
 }
 
 .policy-card p {
-  line-height: 1.6;
-  color: #333;
+  line-height: 1.7;
+  color: var(--text-secondary);
   margin: 10px 0;
+  font-size: 0.95rem;
 }
 
 .policy-card ul {
-  padding-left: 18px;
-  margin: 8px 0;
+  padding-left: 20px;
+  margin: 10px 0;
 }
 
 .policy-card li {
-  margin: 6px 0;
+  margin: 8px 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.65;
 }
 
-/* dashed-list variant for quick bullets */
+.policy-card li::marker {
+  color: var(--text-muted);
+}
+
+.policy-card strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* ─── Dash list ─── */
+
 .dash-list {
   list-style: none;
   padding-left: 0;
 }
+
 .dash-list li {
   position: relative;
-  padding-left: 18px;
+  padding-left: 20px;
 }
+
 .dash-list li::before {
-  content: "–";
+  content: "\2013";
   position: absolute;
   left: 0;
   top: 0;
+  color: var(--accent);
 }
 
-/* Contact list */
+/* ─── Contact list ─── */
+
 .contact-list {
   list-style: none;
   padding-left: 0;
-  margin: 10px 0 0;
-}
-.contact-list li { margin: 6px 0; }
-
-/* Note box */
-.policy-note {
-  border: 1px dashed #ddd;
-  background: #fcfcfc;
+  margin: 12px 0 0;
 }
 
-/* Footer */
-.privacy-footer {
-  text-align: center;
-  margin-top: 26px;
+.contact-list li {
+  margin: 8px 0;
+  padding-left: 0;
 }
 
-.back-link {
-  color: #000;
+/* ─── Footer ─── */
+
+.pp-footer {
+  padding: 36px 32px;
+  border-top: 1px solid var(--border);
+}
+
+.pp-footer-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pp-footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: -0.02em;
+}
+
+.pp-footer-link {
+  font-size: 0.9rem;
+  color: var(--text-muted);
   text-decoration: none;
-  border: 1px solid #ddd;
-  padding: 10px 14px;
-  border-radius: 999px;
-  display: inline-block;
-  transition: background-color 0.2s, border-color 0.2s;
-}
-.back-link:hover {
-  background-color: #f3f3f3;
-  border-color: #ccc;
+  transition: color 0.3s;
 }
 
-/* Responsive */
+.pp-footer-link:hover {
+  color: var(--text-secondary);
+}
+
+/* ─── Responsive ─── */
+
 @media (max-width: 640px) {
-  .privacy-title { font-size: 2.1rem; }
-  .toc-list { columns: 1; }
-  .privacy { padding: 24px 16px 40px; }
+  .pp-nav {
+    padding: 14px 20px;
+  }
+
+  .privacy {
+    padding: 40px 16px 60px;
+  }
+
+  .privacy-title {
+    font-size: 2rem;
+  }
+
+  .privacy-meta {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-sep {
+    display: none;
+  }
+
+  .policy-card {
+    padding: 22px 20px;
+  }
+
+  .pp-footer {
+    padding: 28px 20px;
+  }
 }

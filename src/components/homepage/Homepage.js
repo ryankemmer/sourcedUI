@@ -1,81 +1,243 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Homepage.css';
 
 function Homepage() {
-  const [imageUrl, setImageUrl] = useState('');
-  const [urlList, setUrlList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setLoading(true);
-    setError('');
+  useEffect(() => {
+    document.body.style.backgroundColor = '#0a0a0a';
+    document.body.style.color = '#f5f0eb';
+    return () => {
+      document.body.style.backgroundColor = '';
+      document.body.style.color = '';
+    };
+  }, []);
 
-    try {
-      const response = await fetch('https://utt0f2i5kl.execute-api.us-west-2.amazonaws.com/prod/sourced', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ image_url: imageUrl }),
-      });
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-      if (response.ok) {
-        const data = await response.json();
-        setUrlList(data.urls);
-      } else {
-        setError('Error fetching URLs.');
-      }
-    } catch (error) {
-      setError('Error fetching URLs.');
-    } finally {
-      setLoading(false);
-    }
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
+    );
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  const handleWaitlist = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <div className="homepage">
-      <div className="hero">
-        <h1 className="hero-title">You Know the Look.<br/>We Know Where to Thrift It.</h1>
-        <p className="hero-subhead">
-          Thrift designer fashion across Depop, Grailed, and more—curated to your exact aesthetic.
-        </p>
-        <form className="search-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            className="search-bar"
-            placeholder="What are you looking for?"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            required
-          />
-          <button type="submit" className="search-btn" disabled={loading}>
-            {loading ? 'Searching...' : 'Search'}
-          </button>
-        </form>
-        {error && <div className="error">{error}</div>}
-      </div>
+      {/* Navigation */}
+      <nav className={`nav${scrolled ? ' nav-scrolled' : ''}`}>
+        <div className="nav-inner">
+          <a href="/" className="nav-logo">sourced</a>
+          <a href="#waitlist" className="nav-cta" onClick={(e) => { e.preventDefault(); scrollToSection('waitlist'); }}>
+            Join Waitlist
+          </a>
+        </div>
+      </nav>
 
-      <div className="results-section">
-        {urlList.length > 0 && (
-          <ul className="url-list">
-            {urlList.map((url, idx) => (
-              <li key={idx}>
-                <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      <section className="info-section">
-        <h2>What We Do</h2>
-        <p>You bring the inspiration. We bring the finds. Think of us as your thrift stylist, powered by your moodboard—not keywords.</p>
-        <ul className="info-list">
-          <li>🔍 Curated from Depop, Grailed, and Poshmark daily</li>
-          <li>✨ Premium brands like Ralph Lauren, Dior, Zegna & more</li>
-          <li>⏰ Updated constantly so you never miss a drop</li>
-        </ul>
+      {/* Hero */}
+      <section className="hero">
+        <div className="hero-glow" />
+        <div className="hero-content">
+          <div className="hero-badge">Coming Soon</div>
+          <h1 className="hero-title">
+            You Know the Look.
+            <br />
+            <span className="hero-accent">We Know Where to Thrift It.</span>
+          </h1>
+          <p className="hero-sub">
+            Thrift designer fashion across Depop, Grailed, and more — curated to
+            your exact aesthetic. No endless searching. No guesswork. Just your
+            vibe, delivered.
+          </p>
+          <div className="hero-buttons">
+            <a
+              href="#waitlist"
+              className="btn btn-primary"
+              onClick={(e) => { e.preventDefault(); scrollToSection('waitlist'); }}
+            >
+              Join the Waitlist
+            </a>
+            <button
+              className="btn btn-ghost"
+              onClick={() => scrollToSection('how-it-works')}
+            >
+              See How It Works
+            </button>
+          </div>
+        </div>
+        <div className="hero-fade" />
       </section>
+
+      {/* How It Works */}
+      <section id="how-it-works" className="section">
+        <div className="container reveal">
+          <span className="eyebrow">How It Works</span>
+          <h2 className="section-heading">
+            You know the look.
+            <br />
+            You just don't know what to search for.
+          </h2>
+          <div className="section-body">
+            <p>That's where we come in.</p>
+            <p>
+              We scan platforms like Depop, Grailed, and Poshmark — and build a
+              feed that looks like <em>you</em>. Just upload your inspo (from
+              Pinterest, your camera roll, wherever), and we'll do the digging.
+            </p>
+          </div>
+          <blockquote className="callout">
+            Think of us as your thrift stylist. Only faster. And obsessed with
+            your moodboard.
+          </blockquote>
+        </div>
+      </section>
+
+      {/* The Problem */}
+      <section className="section section-alt">
+        <div className="container reveal">
+          <span className="eyebrow">The Problem</span>
+          <h2 className="section-heading">
+            You've got the inspo.
+            <br />
+            But the thrift web is a mess.
+          </h2>
+          <div className="section-body">
+            <p>
+              Maybe you saved the perfect fit on TikTok or Pinterest. Maybe
+              you've got a whole folder of looks.
+            </p>
+            <p>
+              But when it comes time to thrift it? You're lost in a sea of tags,
+              overpriced resellers, and endless scrolling.
+            </p>
+            <p className="emphasis">
+              The pieces are out there — but good luck finding them.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* What We Curate */}
+      <section className="section">
+        <div className="container reveal">
+          <span className="eyebrow">What We Curate</span>
+          <h2 className="section-heading">
+            Your style. Real pieces. Real sellers.
+          </h2>
+          <div className="style-cards">
+            <div className="style-card">
+              <span className="style-emoji" role="img" aria-label="Coat">🧥</span>
+              <h3>Archival Streetwear</h3>
+            </div>
+            <div className="style-card">
+              <span className="style-emoji" role="img" aria-label="Dress">👗</span>
+              <h3>Y2K Minimalism</h3>
+            </div>
+            <div className="style-card">
+              <span className="style-emoji" role="img" aria-label="Tie">👔</span>
+              <h3>Classic Ralph, Dior, Zegna</h3>
+            </div>
+          </div>
+          <p className="section-footer-text">
+            Whatever your style leans, we pull the real thing from real sellers —
+            all secondhand, all premium, all sustainable.
+          </p>
+        </div>
+      </section>
+
+      {/* No More */}
+      <section className="section section-alt">
+        <div className="container reveal">
+          <span className="eyebrow">What You Won't Deal With</span>
+          <h2 className="section-heading">No more of this.</h2>
+          <div className="nomore-list">
+            <div className="nomore-item">
+              <span className="nomore-x">&#x2715;</span>
+              <span>Generic results</span>
+            </div>
+            <div className="nomore-item">
+              <span className="nomore-x">&#x2715;</span>
+              <span>Tag spamming</span>
+            </div>
+            <div className="nomore-item">
+              <span className="nomore-x">&#x2715;</span>
+              <span>
+                Wasting hours scrolling through listings that don't fit your
+                style or standards
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section id="waitlist" className="section section-cta">
+        <div className="container reveal">
+          <div className="cta-divider" />
+          <h2 className="cta-heading">Thrifting just got personal.</h2>
+          <p className="cta-sub">Built for your style. Not the search bar.</p>
+          <p className="cta-body">
+            Forget fast fashion. Forget overpriced retail. This is luxury that
+            doesn't break the bank, style that doesn't wreck the planet, and a
+            find engine that gets your aesthetic better than your ex ever did.
+          </p>
+          {!submitted ? (
+            <form className="waitlist-form" onSubmit={handleWaitlist}>
+              <input
+                type="email"
+                className="waitlist-input"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <button type="submit" className="btn btn-primary btn-lg">
+                Join the Waitlist
+              </button>
+            </form>
+          ) : (
+            <div className="waitlist-success">
+              <span className="success-check">&#x2713;</span>
+              <p>You're on the list. We'll be in touch soon.</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-inner">
+          <span className="footer-brand">sourced</span>
+          <Link to="/privacy" className="footer-link">
+            Privacy Policy
+          </Link>
+        </div>
+      </footer>
     </div>
   );
 }
