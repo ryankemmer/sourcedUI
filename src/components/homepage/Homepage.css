@@ -3,20 +3,20 @@
 /* ─── Design Tokens ─── */
 
 :root {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #0f0f0f;
-  --bg-card: #161616;
-  --bg-card-hover: #1c1c1c;
-  --text-primary: #f5f0eb;
-  --text-secondary: #a09b94;
-  --text-muted: #5a5550;
-  --accent: #c9a96e;
-  --accent-hover: #dbb978;
-  --accent-glow: rgba(201, 169, 110, 0.15);
-  --danger: #e05252;
-  --danger-bg: rgba(224, 82, 82, 0.1);
-  --border: rgba(255, 255, 255, 0.07);
-  --border-hover: rgba(255, 255, 255, 0.14);
+  --bg-primary: #f5f0eb;
+  --bg-secondary: #ebe5dd;
+  --bg-card: #fff;
+  --bg-card-hover: #f7f4f0;
+  --text-primary: #1a1a1a;
+  --text-secondary: #5a5550;
+  --text-muted: #a09b94;
+  --accent: #b8923e;
+  --accent-hover: #a07e2f;
+  --accent-glow: rgba(184, 146, 62, 0.15);
+  --danger: #d04040;
+  --danger-bg: rgba(208, 64, 64, 0.08);
+  --border: rgba(0, 0, 0, 0.1);
+  --border-hover: rgba(0, 0, 0, 0.18);
   --font-display: 'Space Grotesk', -apple-system, sans-serif;
   --font-body: 'Inter', -apple-system, sans-serif;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -80,7 +80,7 @@ body {
 
 .nav-scrolled {
   padding: 14px 32px;
-  background: rgba(10, 10, 10, 0.8);
+  background: rgba(245, 240, 235, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
@@ -107,7 +107,7 @@ body {
   font-family: var(--font-display);
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--bg-primary);
+  color: #fff;
   background: var(--accent);
   padding: 10px 24px;
   border-radius: 10px;
@@ -266,7 +266,7 @@ body {
 
 .btn-primary {
   background: var(--accent);
-  color: var(--bg-primary);
+  color: #fff;
 }
 
 .btn-primary:hover {
@@ -287,12 +287,43 @@ body {
 
 .btn-ghost:hover {
   border-color: var(--border-hover);
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .btn-lg {
   padding: 18px 40px;
   font-size: 1.05rem;
+}
+
+/* ─── Phone Mockup ─── */
+
+.phone-mockup {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+.phone-frame {
+  position: relative;
+  width: 240px;
+  padding: 12px;
+  background: #1a1a1a;
+  border-radius: 36px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+.phone-notch {
+  width: 80px;
+  height: 6px;
+  background: #333;
+  border-radius: 3px;
+  margin: 0 auto 10px;
+}
+
+.phone-video {
+  width: 100%;
+  display: block;
+  border-radius: 24px;
 }
 
 /* ─── Sections ─── */
@@ -394,8 +425,8 @@ body {
   background: var(--bg-card-hover);
   transform: translateY(-6px);
   box-shadow:
-    0 24px 48px rgba(0, 0, 0, 0.35),
-    0 0 0 1px rgba(201, 169, 110, 0.08);
+    0 24px 48px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(201, 169, 110, 0.12);
 }
 
 .style-emoji {
@@ -703,6 +734,46 @@ body {
     margin-top: 32px;
     padding: 20px 0 20px 20px;
   }
+}
+
+/* ─── Founders ─── */
+
+.founders {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 48px;
+}
+
+.founder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.founder-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border);
+}
+
+.founder-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.founders-bio {
+  max-width: 640px;
+  margin: 36px auto 0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  text-align: center;
 }
 
 @media (max-width: 380px) {

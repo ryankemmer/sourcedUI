@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './Homepage.css';
 
@@ -6,10 +6,24 @@ function Homepage() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const videoRef = useRef(null);
 
   useEffect(() => {
-    document.body.style.backgroundColor = '#0a0a0a';
-    document.body.style.color = '#f5f0eb';
+    const video = videoRef.current;
+    if (!video) return;
+    const setSpeed = () => { video.playbackRate = 2; };
+    video.addEventListener('loadeddata', setSpeed);
+    video.addEventListener('playing', setSpeed);
+    setSpeed();
+    return () => {
+      video.removeEventListener('loadeddata', setSpeed);
+      video.removeEventListener('playing', setSpeed);
+    };
+  }, []);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = '#f5f0eb';
+    document.body.style.color = '#1a1a1a';
     return () => {
       document.body.style.backgroundColor = '';
       document.body.style.color = '';
@@ -123,7 +137,7 @@ function Homepage() {
           <h2 className="section-heading">
             You've got the inspo.
             <br />
-            But the thrift web is a mess.
+            But the thrift web is a lot to wrangle.
           </h2>
           <div className="section-body">
             <p>
@@ -137,6 +151,33 @@ function Homepage() {
             <p className="emphasis">
               The pieces are out there, but good luck finding them!
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Thriftable Feed */}
+      <section className="section">
+        <div className="container reveal">
+          <span className="eyebrow">The Solution</span>
+          <h2 className="section-heading">
+            Goodbye searchbar, hello thriftable feed.
+          </h2>
+          <div className="phone-mockup">
+            <div className="phone-frame">
+              <div className="phone-notch" />
+              <video
+                ref={videoRef}
+                autoPlay
+                loop
+                muted
+                playsInline
+                onLoadedMetadata={(e) => { e.target.playbackRate = 2; }}
+                onPlay={(e) => { e.target.playbackRate = 2; }}
+                className="phone-video"
+              >
+                <source src={`${process.env.PUBLIC_URL}/Recording.mp4`} type="video/mp4" />
+              </video>
+            </div>
           </div>
         </div>
       </section>
@@ -191,6 +232,38 @@ function Homepage() {
               </span>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Founders */}
+      <section className="section">
+        <div className="container reveal">
+          <span className="eyebrow">The Founders</span>
+          <h2 className="section-heading">Meet Cole & Ryan</h2>
+          <div className="founders">
+            <div className="founder">
+              <img
+                src={`${process.env.PUBLIC_URL}/cole.jpeg`}
+                alt="Cole"
+                className="founder-img"
+              />
+              <span className="founder-name">Cole</span>
+            </div>
+            <div className="founder">
+              <img
+                src={`${process.env.PUBLIC_URL}/ryan.jpeg`}
+                alt="Ryan"
+                className="founder-img"
+              />
+              <span className="founder-name">Ryan</span>
+            </div>
+          </div>
+          <p className="founders-bio">
+            One part Google media strategist, one part Amazon Prime Video AI
+            practitioner. Cole and Ryan founded Sourced to fix the search fatigue
+            of online thrifting. Together they've built a platform that makes
+            online thrifting easier than ever before.
+          </p>
         </div>
       </section>
 
