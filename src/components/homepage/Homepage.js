@@ -70,8 +70,7 @@ function Homepage() {
             <span className="hero-accent">We Know Where to Thrift It.</span>
           </h1>
           <p className="hero-sub">
-            Thrift designer fashion across Depop, Grailed, and more — curated to
-            your exact aesthetic. No endless searching. No guesswork. Just your
+            Thrift designer fashion across Depop, Grailed. No endless searching. No guesswork. Just your
             vibe, delivered.
           </p>
           <div className="hero-buttons">
@@ -105,7 +104,7 @@ function Homepage() {
           <div className="section-body">
             <p>That's where we come in.</p>
             <p>
-              We scan platforms like Depop, Grailed, and Poshmark — and build a
+              We scan platforms like Depop, Grailed, and Poshmark to build a
               feed that looks like <em>you</em>. Just upload your inspo (from
               Pinterest, your camera roll, wherever), and we'll do the digging.
             </p>
@@ -136,7 +135,7 @@ function Homepage() {
               overpriced resellers, and endless scrolling.
             </p>
             <p className="emphasis">
-              The pieces are out there — but good luck finding them.
+              The pieces are out there, but good luck finding them!
             </p>
           </div>
         </div>
@@ -155,7 +154,7 @@ function Homepage() {
               <h3>Archival Streetwear</h3>
             </div>
             <div className="style-card">
-              <span className="style-emoji" role="img" aria-label="Dress">👗</span>
+              <span className="style-emoji" role="img" aria-label="Jeans">👖</span>
               <h3>Y2K Minimalism</h3>
             </div>
             <div className="style-card">
@@ -164,7 +163,7 @@ function Homepage() {
             </div>
           </div>
           <p className="section-footer-text">
-            Whatever your style leans, we pull the real thing from real sellers —
+            Whatever your style leans, we pull the real thing from real sellers
             all secondhand, all premium, all sustainable.
           </p>
         </div>
