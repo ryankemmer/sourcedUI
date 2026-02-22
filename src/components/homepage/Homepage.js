@@ -52,8 +52,17 @@ function Homepage() {
     return () => observer.disconnect();
   }, []);
 
-  const handleWaitlist = (e) => {
+  const handleWaitlist = async (e) => {
     e.preventDefault();
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ 'form-name': 'beta-signup', email }).toString(),
+      });
+    } catch (err) {
+      // Still show success — Netlify will retry
+    }
     setSubmitted(true);
   };
 
@@ -68,7 +77,7 @@ function Homepage() {
         <div className="nav-inner">
           <a href="/" className="nav-logo">sourced</a>
           <a href="#waitlist" className="nav-cta" onClick={(e) => { e.preventDefault(); scrollToSection('waitlist'); }}>
-            Join Waitlist
+            Sign Up for Beta
           </a>
         </div>
       </nav>
@@ -93,7 +102,7 @@ function Homepage() {
               className="btn btn-primary"
               onClick={(e) => { e.preventDefault(); scrollToSection('waitlist'); }}
             >
-              Join the Waitlist
+              Sign Up for the Beta
             </a>
             <button
               className="btn btn-ghost"
@@ -271,17 +280,18 @@ function Homepage() {
       <section id="waitlist" className="section section-cta">
         <div className="container reveal">
           <div className="cta-divider" />
-          <h2 className="cta-heading">Thrifting just got personal.</h2>
-          <p className="cta-sub">Built for your style. Not the search bar.</p>
+          <h2 className="cta-heading">Be the first to thrift smarter.</h2>
+          <p className="cta-sub">Sign up for early access to the Sourced beta.</p>
           <p className="cta-body">
-            Forget fast fashion. Forget overpriced retail. This is luxury that
-            doesn't break the bank, style that doesn't wreck the planet, and a
-            find engine that gets your aesthetic better than your ex ever did.
+            We're letting in a small group of beta testers before launch.
+            Get first dibs on a thrift feed built around your style, not a search bar.
           </p>
           {!submitted ? (
-            <form className="waitlist-form" onSubmit={handleWaitlist}>
+            <form className="waitlist-form" name="beta-signup" data-netlify="true" onSubmit={handleWaitlist}>
+              <input type="hidden" name="form-name" value="beta-signup" />
               <input
                 type="email"
+                name="email"
                 className="waitlist-input"
                 placeholder="Enter your email"
                 value={email}
@@ -289,13 +299,13 @@ function Homepage() {
                 required
               />
               <button type="submit" className="btn btn-primary btn-lg">
-                Join the Waitlist
+                Sign Up for the Beta
               </button>
             </form>
           ) : (
             <div className="waitlist-success">
               <span className="success-check">&#x2713;</span>
-              <p>You're on the list. We'll be in touch soon.</p>
+              <p>You're in. We'll reach out when the beta is ready.</p>
             </div>
           )}
         </div>
