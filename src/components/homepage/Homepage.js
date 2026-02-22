@@ -54,11 +54,12 @@ function Homepage() {
 
   const handleWaitlist = async (e) => {
     e.preventDefault();
+    const formData = new FormData(e.target);
     try {
       await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ 'form-name': 'beta-signup', email }).toString(),
+        body: new URLSearchParams(formData).toString(),
       });
     } catch (err) {
       // Still show success — Netlify will retry
